@@ -21,3 +21,29 @@ const etkinlikler = [
         tur: "soylesi"
     },
 ];
+
+const kartAlani = document.querySelector("#kartlar");
+
+etkinlikler.forEach(function (etkinlik) {
+    const kart = document.createElement("article");
+    kart.className = "kart";
+
+    const baslik = document.createElement("h3");
+    baslik.textContent = etkinlik.baslik;
+
+    const tarih = document.createElement("p");
+    tarih.textContent = "Tarih: " + new Date(etkinlik.tarih).toLocaleDateString("tr-TR");
+
+    const yer = document.createElement("p");
+    yer.textContent = "Yer: " + etkinlik.yer;
+
+    const kontenjan = document.createElement("p");
+    kontenjan.textContent = "Kontenjan: " + etkinlik.kontenjan + " kişi";
+
+    const tur = document.createElement("span");
+    tur.className = "etiket";
+    tur.textContent = etkinlik.tur;
+
+    kart.append(baslik, tarih, yer, kontenjan, tur);
+    kartAlani.append(kart);
+});
