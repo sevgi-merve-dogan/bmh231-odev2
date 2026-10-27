@@ -27,3 +27,8 @@ body {
     flex-wrap: wrap;
     margin-bottom: 17px ;
 }
+.kartlar {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(248px, 1fr));
+    gap: 13px ;
+}
