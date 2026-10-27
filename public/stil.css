@@ -1,11 +1,22 @@
 :root {
-    --arka-plan: #E8B4B8;
-    --yazi-rengi: #3E2723;
-    --ana-renk: #A7C7E7;
+    --arka-taraf: #bedae5;
+    --yazinin-rengi: #351c17;
+    --ana-renk: #d2b6dc;
+}
+
+* {
+    box-sizing: border-box;
 }
 
 body {
-    background-color: pink;
-    color: rgb(55, 11, 11);
+    background-color: var(--arka-taraf);
+    color: var(--yazinin-rengi);
     font-family: Arial, sans-serif;
+}
+.ust-bant {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+    padding: 18px;
+    background-color: var(--ana-renk);
 }
