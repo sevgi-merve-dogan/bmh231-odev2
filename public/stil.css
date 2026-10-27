@@ -20,3 +20,10 @@ body {
     padding: 18px;
     background-color: var(--ana-renk);
 }
+
+.filtreler {
+    display: flex;
+    gap: 13px ;
+    flex-wrap: wrap;
+    margin-bottom: 17px ;
+}
