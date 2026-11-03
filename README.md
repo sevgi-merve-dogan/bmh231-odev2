@@ -1,10 +1,15 @@
-# Bozok Etkinlik Panosu (bmh231-odev2)
+# Bozok Etkinlik Panosu 🎉
 
-BMH231 Web Programlama dersi Ödev 2 projesi. Yozgat Bozok Üniversitesi kampüsündeki etkinlikleri
-(atölye, söyleşi, topluluk) listeleyen küçük bir web uygulaması. Sayfa HTML/CSS/JavaScript ile yazıldı;
-etkinlikler Node.js ile yazılmış bir JSON API'den `fetch` ile çekiliyor.
+Merhaba! Bu proje BMH231 Web Programlama dersinin 2. ödevi için yaptığım küçük bir kampüs etkinlik panosu.
 
-## Kurulum ve çalıştırma
+Okulda gittiğim ya da gitmek istediğim etkinlikleri (blockchain hackathonu, siber güvenlik kulübü toplantısı,
+oyun geliştirme kulübü buluşmaları gibi) tek bir sayfada görmek istedim. Sayfada etkinlikleri türüne göre
+(atölye, söyleşi, topluluk) süzebiliyor, başlığa göre arayabiliyor ve form ile yeni bir etkinlik önerebiliyorsunuz.
+
+Sayfanın kendisi HTML, CSS ve JavaScript ile yazıldı. Etkinlikler ise Node.js ile yazdığım küçük bir sunucudan
+(`/api/etkinlikler`) `fetch` ile geliyor.
+
+## Nasıl çalıştırılır?
 
 ```bash
 git clone https://github.com/sevgi-merve-dogan/bmh231-odev2.git
@@ -12,36 +17,39 @@ cd bmh231-odev2
 npm start
 ```
 
-Sonra tarayıcıda **http://localhost:3000** adresini açın. (Ek paket gerekmez; sunucu yalnızca
-Node.js'in `http`, `fs` ve `path` modüllerini kullanır.)
+Terminalde `Sunucu çalışıyor: http://localhost:3000` yazınca tarayıcıdan **http://localhost:3000** adresine gidin.
+Ekstra bir şey kurmanıza gerek yok, sunucu sadece Node.js'in kendi `http`, `fs` ve `path` modüllerini kullanıyor.
 
-## Proje yapısı
+## Dosyalar
 
 ```
 bmh231-odev2/
-|-- sunucu.js          # http modülüyle yazılmış sunucu
-|-- etkinlikler.json   # etkinlik verileri
-|-- package.json       # "start": "node sunucu.js"
+|-- sunucu.js          -> sunucu (port 3000)
+|-- etkinlikler.json   -> etkinlik verileri
+|-- package.json       -> npm start komutu
 |-- .gitignore
 |-- README.md
 `-- public/
-    |-- index.html
-    |-- stil.css
-    `-- betik.js
+    |-- index.html     -> sayfanın iskeleti
+    |-- stil.css       -> renkler ve yerleşim
+    `-- betik.js       -> kartlar, filtre, arama, form, fetch
 ```
 
 ## API uç noktaları
 
-| Yöntem | Yol | Durum | Yanıt |
+| Yöntem | Yol | Durum | Ne döner? |
 |---|---|---|---|
-| GET | `/` ve `public/` altındaki dosyalar | 200 | Dosya içeriği (text/html, text/css, text/javascript) |
-| GET | `/api/etkinlikler` | 200 | Tüm etkinlikler (JSON) |
-| GET | `/api/etkinlikler?tur=atolye` | 200 | Yalnızca o türdeki etkinlikler (JSON) |
-| GET | `/api/etkinlikler/3` | 200 | Tek etkinlik (JSON) |
+| GET | `/` ve `public/` içindeki dosyalar | 200 | Sayfa dosyaları (html, css, js) |
+| GET | `/api/etkinlikler` | 200 | Bütün etkinlikler (JSON) |
+| GET | `/api/etkinlikler?tur=atolye` | 200 | Sadece o türdeki etkinlikler |
+| GET | `/api/etkinlikler/3` | 200 | id'si 3 olan etkinlik |
 | GET | `/api/etkinlikler/999` | 404 | `{"hata": "Etkinlik bulunamadı"}` |
-| GET | Bulunmayan diğer yollar | 404 | Düz metin |
-| GET dışı (POST, DELETE...) | Herhangi bir yol | 405 | Düz metin, `Allow: GET` başlığı |
+| GET | Olmayan başka bir yol | 404 | Düz metin hata |
+| POST, DELETE vb. | Her yol | 405 | Düz metin + `Allow: GET` başlığı |
 
 ## Ekran görüntüsü
 
 ![Bozok Etkinlik Panosu](rapor-gorselleri/C4_2_console_temiz.png)
+
+---
+Sevgi Merve Doğan · Yozgat Bozok Üniversitesi, Bilgisayar Mühendisliği
