@@ -23,27 +23,104 @@ const etkinlikler = [
 ];
 
 const kartAlani = document.querySelector("#kartlar");
+const filtreDugmeleri = document.querySelectorAll(".filtre");
+const aramaKutusu = document.querySelector("#arama");
 
-etkinlikler.forEach(function (etkinlik) {
-    const kart = document.createElement("article");
-    kart.className = "kart";
+let seciliTur = "tumu";
 
-    const baslik = document.createElement("h3");
-    baslik.textContent = etkinlik.baslik;
+function kartlariCiz() {
+    kartAlani.textContent = "";
 
-    const tarih = document.createElement("p");
-    tarih.textContent = "Tarih: " + new Date(etkinlik.tarih).toLocaleDateString("tr-TR");
+    const aranan = aramaKutusu.value.trim().toLocaleLowerCase("tr-TR");
 
-    const yer = document.createElement("p");
-    yer.textContent = "Yer: " + etkinlik.yer;
+    const sonuc = etkinlikler.filter(function (etkinlik) {
+        const turUyuyor = seciliTur === "tumu" || etkinlik.tur === seciliTur;
+        const aramaUyuyor = etkinlik.baslik.toLocaleLowerCase("tr-TR").includes(aranan);
+        return turUyuyor && aramaUyuyor;
+    });
 
-    const kontenjan = document.createElement("p");
-    kontenjan.textContent = "Kontenjan: " + etkinlik.kontenjan + " kişi";
+    if (sonuc.length === 0) {
+        const ileti = document.createElement("p");
+        ileti.textContent = "Aramanıza uygun etkinlik yok.";
+        kartAlani.append(ileti);
+        return;
+    }
 
-    const tur = document.createElement("span");
-    tur.className = "etiket";
-    tur.textContent = etkinlik.tur;
+    sonuc.forEach(function (etkinlik) {
+        const kart = document.createElement("article");
+        kart.className = "kart";
 
-    kart.append(baslik, tarih, yer, kontenjan, tur);
-    kartAlani.append(kart);
+        const baslik = document.createElement("h3");
+        baslik.textContent = etkinlik.baslik;
+
+        const tarih = document.createElement("p");
+        tarih.textContent = "Tarih: " + new Date(etkinlik.tarih).toLocaleDateString("tr-TR");
+
+        const yer = document.createElement("p");
+        yer.textContent = "Yer: " + etkinlik.yer;
+
+        const kontenjan = document.createElement("p");
+        kontenjan.textContent = "Kontenjan: " + etkinlik.kontenjan + " kişi";
+
+        const tur = document.createElement("span");
+        tur.className = "etiket";
+        tur.textContent = etkinlik.tur;
+
+        kart.append(baslik, tarih, yer, kontenjan, tur);
+        kartAlani.append(kart);
+    });
+}
+
+filtreDugmeleri.forEach(function (dugme) {
+    dugme.addEventListener("click", function () {
+        filtreDugmeleri.forEach(function (d) {
+            d.classList.remove("secili");
+        });
+        dugme.classList.add("secili");
+        seciliTur = dugme.dataset.tur;
+        kartlariCiz();
+    });
+});
+
+aramaKutusu.addEventListener("input", kartlariCiz);
+
+kartlariCiz();
+
+const form = document.querySelector("#oner-formu");
+const formIleti = document.querySelector("#form-ileti");
+
+form.addEventListener("submit", function (olay) {
+    olay.preventDefault();
+
+    const ad = form.ad.value.trim();
+    const tarih = form.tarih.value;
+    const eposta = form.eposta.value.trim();
+
+    const hatalar = [];
+
+    if (ad.length < 5) {
+        hatalar.push("Etkinlik adı en az 5 karakter olmalı.");
+    }
+
+    const bugun = new Date();
+    bugun.setHours(0, 0, 0, 0);
+    if (tarih === "") {
+        hatalar.push("Tarih boş bırakılamaz.");
+    } else if (new Date(tarih + "T00:00:00") < bugun) {
+        hatalar.push("Tarih geçmiş bir gün olamaz.");
+    }
+
+    const epostaKalibi = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!epostaKalibi.test(eposta)) {
+        hatalar.push("Geçerli bir e-posta adresi yazın.");
+    }
+
+    if (hatalar.length > 0) {
+        formIleti.className = "hata";
+        formIleti.textContent = hatalar.join(" ");
+    } else {
+        formIleti.className = "basarili";
+        formIleti.textContent = "Teşekkürler! Etkinlik öneriniz alındı.";
+        form.reset();
+    }
 });
