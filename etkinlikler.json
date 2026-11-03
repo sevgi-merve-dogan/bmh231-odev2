@@ -22,5 +22,29 @@
         "yer": "Mühendislik-Mimarlık Fakültesi Konferans Salonu",
         "kontenjan": 80,
         "tur": "soylesi"
+    },
+    {
+        "id": 4,
+        "baslik": "Oyun Geliştirme Kulübü Toplantısı",
+        "tarih": "2026-11-18",
+        "yer": "Mühendislik-Mimarlık Fakültesi",
+        "kontenjan": 20,
+        "tur": "topluluk"
+    },
+    {
+        "id": 5,
+        "baslik": "Git ve GitHub Atölyesi",
+        "tarih": "2026-11-25",
+        "yer": "Mühendislik-Mimarlık Fakültesi Bilgisayar Laboratuvarı",
+        "kontenjan": 25,
+        "tur": "atolye"
+    },
+    {
+        "id": 6,
+        "baslik": "Staj Nasıl Bulunur? Mezun Söyleşisi",
+        "tarih": "2026-12-02",
+        "yer": "Mühendislik-Mimarlık Fakültesi Konferans Salonu",
+        "kontenjan": 100,
+        "tur": "soylesi"
     }
 ]

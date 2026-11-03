@@ -28,7 +28,7 @@ function kartlariCiz() {
         const kart = document.createElement("article");
         kart.className = "kart";
 
-        const baslik = document.createElement("h3");
+        const baslik = document.createElement("h2");
         baslik.textContent = etkinlik.baslik;
 
         const tarih = document.createElement("p");
