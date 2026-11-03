@@ -1,0 +1,16 @@
+D3 Ağ gözlemi – ölçüm: 3 Kasım 2026, 13:00 (TSİ), Microsoft Edge, localhost:3000
+
+(a) /api/etkinlikler (Fetch/XHR)
+- Durum kodu: 200 OK
+- Yanıt Content-Type: application/json; charset=utf-8
+- TTFB (Waiting for server response): 10,81 ms   | Toplam: 12,99 ms
+Ana HTML belgesi (localhost, Doc)
+- TTFB: 4,42 ms   | Toplam: 7,97 ms
+Karşılaştırma: API isteğinin TTFB'si HTML'inkinden yaklaşık 2,5 kat uzun.
+Sebep: HTML dosyası doğrudan okunup gönderiliyor; API isteğinde sunucu
+etkinlikler.json'u okuyup JSON.parse ve JSON.stringify yapıyor.
+
+(b) Throttling: 3G (ölçüm: 3 Kasım 2026, 13:04 TSİ)
+- "Yükleniyor..." iletisi kartlar gelene kadar ekranda göründü (D3_5_yukleniyor_3G.png)
+- /api/etkinlikler toplam süre: 12,99 ms -> 2,06 s (yaklaşık 160 kat yavaş)
+- TTFB: 10,81 ms -> 2,05 s; API isteği sayfa açıldıktan ~2,13 s sonra başladı

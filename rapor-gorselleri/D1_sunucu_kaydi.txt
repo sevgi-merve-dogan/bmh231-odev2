@@ -1,0 +1,15 @@
+PS C:\Users\Merve\bmh231-odev2> npm start
+
+> bmh231-odev2@1.0.0 start
+> node sunucu.js
+
+Sunucu çalışıyor: http://localhost:3000
+GET /
+GET /stil.css
+GET /betik.js
+GET /api/etkinlikler
+GET /favicon.ico
+GET /api/etkinlikler?tur=atolye
+GET /api/etkinlikler/2
+GET /api/etkinlikler/999
+DELETE /api/etkinlikler/2
