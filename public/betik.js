@@ -1,26 +1,4 @@
-const etkinlikler = [
-    {
-        baslik: "Blockchain Hackathon Atölyesi",
-        tarih: "2026-11-27",
-        yer: "Mühendislik-Mimarlık Fakültesi",
-        kontenjan: 30,
-        tur: "atolye"
-    },
-    {
-        baslik: "Siber Güvenlik Kulübü Toplantısı",
-        tarih: "2026-11-14",
-        yer: "Mühendislik-Mimarlık Fakültesi",
-        kontenjan: 12,
-        tur: "topluluk"
-    },
-    {
-        baslik: "Oyun Sektöründe Kariyer Söyleşisi",
-        tarih: "2026-11-20",
-        yer: "Mühendislik-Mimarlık Fakültesi Konferans Salonu",
-        kontenjan: 80,
-        tur: "soylesi"
-    },
-];
+let etkinlikler = [];
 
 const kartAlani = document.querySelector("#kartlar");
 const filtreDugmeleri = document.querySelectorAll(".filtre");
@@ -84,7 +62,25 @@ filtreDugmeleri.forEach(function (dugme) {
 
 aramaKutusu.addEventListener("input", kartlariCiz);
 
-kartlariCiz();
+async function etkinlikleriYukle() {
+    kartAlani.textContent = "Yükleniyor...";
+
+    try {
+        const yanit = await fetch("/api/etkinlikler");
+
+        if (!yanit.ok) {
+            throw new Error("Sunucu hatası: " + yanit.status);
+        }
+
+        etkinlikler = await yanit.json();
+        kartlariCiz();
+    } catch (hata) {
+        console.error(hata);
+        kartAlani.textContent = "Etkinlikler yüklenemedi. Lütfen daha sonra tekrar deneyin.";
+    }
+}
+
+etkinlikleriYukle();
 
 const form = document.querySelector("#oner-formu");
 const formIleti = document.querySelector("#form-ileti");
